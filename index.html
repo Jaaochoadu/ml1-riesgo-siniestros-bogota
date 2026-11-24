@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Riesgo de siniestro fatal · Bogotá</title>
+<meta name="description" content="Prototipo académico: un modelo de regresión logística entrenado en Google Colab y desplegado en GitHub Pages por tres rutas (ONNX, pesos en JSON y Pyodide)." />
+<link rel="stylesheet" href="estilos.css" />
+</head>
+<body>
+<header class="cabecera">
+  <div class="contenedor">
+    <p class="antetitulo">Prototipo académico · Machine Learning I</p>
+    <h1>¿Qué tan probable es que un siniestro reportado tenga fallecidos?</h1>
+    <p class="tesis">Un modelo entrenado en Google Colab con datos abiertos de Bogotá, que corre completo en su navegador. Nada de lo que seleccione sale de este equipo.</p>
+  </div>
+</header>
+
+<main class="contenedor">
+
+  <section aria-labelledby="t-decision">
+    <h2 id="t-decision">La decisión que apoya</h2>
+    <p>Cuando entra un reporte de siniestro, un centro de despacho debe decidir a cuál responder primero. Este prototipo estima, con la información disponible en el momento del reporte (clase de siniestro, localidad, franja horaria y día), la probabilidad de que el siniestro tenga personas fallecidas, y la compara con la tasa base. Apoya la priorización; no la reemplaza.</p>
+  </section>
+
+  <section aria-labelledby="t-form" class="tarjeta">
+    <h2 id="t-form">Describa el reporte</h2>
+    <form id="formulario" class="formulario">
+      <label>Clase de siniestro <select name="CLASE" required></select></label>
+      <label>Localidad <select name="LOCALIDAD" required></select></label>
+      <label>Franja horaria <select name="FRANJA" required></select></label>
+      <label>Día de la semana <select name="DIA" required></select></label>
+      <div class="acciones">
+        <button type="submit" class="boton">Estimar con las tres rutas</button>
+        <button type="button" id="verificar" class="boton secundario">Verificar con los casos de prueba</button>
+      </div>
+    </form>
+  </section>
+
+  <section aria-labelledby="t-rutas">
+    <h2 id="t-rutas">El mismo modelo, tres maneras de llevarlo al navegador</h2>
+    <div class="rejilla">
+      <article class="ruta" id="ruta-onnx">
+        <h3>Ruta 1 · ONNX</h3>
+        <p class="como">El modelo completo, con su preprocesamiento, en un archivo <code>.onnx</code> que ejecuta ONNX Runtime Web.</p>
+        <p class="prob" aria-live="polite">Sin estimar</p>
+        <div class="barra"><span></span></div>
+        <p class="estado">Lista para estimar.</p>
+      </article>
+      <article class="ruta" id="ruta-json">
+        <h3>Ruta 2 · Pesos en JSON</h3>
+        <p class="como">Los coeficientes de la regresión en un archivo <code>.json</code>; la fórmula se calcula en JavaScript.</p>
+        <p class="prob" aria-live="polite">Sin estimar</p>
+        <div class="barra"><span></span></div>
+        <p class="estado">Lista para estimar.</p>
+      </article>
+      <article class="ruta" id="ruta-pyodide">
+        <h3>Ruta 3 · Pyodide</h3>
+        <p class="como">Python y scikit-learn dentro del navegador, leyendo el mismo <code>.joblib</code> que se guardó en Colab.</p>
+        <p class="prob" aria-live="polite">Sin estimar</p>
+        <div class="barra"><span></span></div>
+        <p class="estado">Se carga al primer uso (puede tardar de 20 a 60 segundos).</p>
+      </article>
+    </div>
+    <p id="lectura" class="lectura" aria-live="polite"></p>
+    <div id="verificacion" class="verificacion" hidden></div>
+  </section>
+
+  <section aria-labelledby="t-comparar">
+    <h2 id="t-comparar">Cuándo conviene cada ruta</h2>
+    <div class="tabla-envoltura">
+    <table>
+      <thead><tr><th>Criterio</th><th>ONNX</th><th>Pesos en JSON</th><th>Pyodide</th></tr></thead>
+      <tbody>
+        <tr><td>Qué modelos admite</td><td>Casi todos los de scikit-learn y Keras, con su preprocesamiento</td><td>Solo modelos cuya fórmula se puede escribir a mano (lineales, logísticos, redes pequeñas)</td><td>Cualquier objeto de scikit-learn que Pyodide pueda cargar</td></tr>
+        <tr><td>Peso que descarga quien visita</td><td>Medio: el motor de ONNX más el modelo</td><td>Mínimo: un archivo de texto</td><td>Alto: un intérprete de Python y sus bibliotecas</td></tr>
+        <tr><td>Tiempo hasta la primera estimación</td><td>Segundos</td><td>Inmediato</td><td>De 20 a 60 segundos</td></tr>
+        <tr><td>Riesgo principal</td><td>Operaciones que el convertidor no soporta</td><td>Que el preprocesamiento reescrito no coincida con el de Colab</td><td>Que la versión de scikit-learn del navegador no sea la de Colab</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </section>
+
+  <section aria-labelledby="t-ficha" class="tarjeta">
+    <h2 id="t-ficha">Ficha del modelo · Model card</h2>
+    <dl id="ficha" class="ficha"></dl>
+    <p class="nota">Datos: Secretaría Distrital de Movilidad (2021), <em>Histórico Siniestros Bogotá D.C.</em>, Datos Abiertos Bogotá. La fuente se actualizó por última vez en 2021: el modelo sirve para aprender a desplegar, no como diagnóstico actual de la movilidad de Bogotá.</p>
+  </section>
+
+</main>
+
+<footer class="pie">
+  <div class="contenedor">
+    <p>Proyecto de ejemplo de la Tutoría 5 de Machine Learning I · Universidad EAN. Prototipo académico sin uso operativo.</p>
+  </div>
+</footer>
+
+<!-- Motores externos, con versión fija para que el sitio no cambie solo -->
+<script src="https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/dist/ort.min.js"></script>
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+<script src="ruta_onnx.js"></script>
+<script src="ruta_json.js"></script>
+<script src="ruta_pyodide.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

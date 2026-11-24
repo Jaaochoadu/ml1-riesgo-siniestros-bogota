@@ -1,0 +1,88 @@
+{
+ "categorias": {
+  "CLASE": [
+   "ATROPELLO",
+   "CAIDA DE OCUPANTE",
+   "CHOQUE",
+   "OTRO",
+   "VOLCAMIENTO"
+  ],
+  "LOCALIDAD": [
+   "ANTONIO NARINO",
+   "BARRIOS UNIDOS",
+   "BOSA",
+   "CANDELARIA",
+   "CHAPINERO",
+   "CIUDAD BOLIVAR",
+   "ENGATIVA",
+   "FONTIBON",
+   "KENNEDY",
+   "LOS MARTIRES",
+   "PUENTE ARANDA",
+   "RAFAEL URIBE URIBE",
+   "SAN CRISTOBAL",
+   "SANTA FE",
+   "SUBA",
+   "SUMAPAZ",
+   "TEUSAQUILLO",
+   "TUNJUELITO",
+   "USAQUEN",
+   "USME"
+  ],
+  "FRANJA": [
+   "Madrugada",
+   "Mañana",
+   "Tarde",
+   "Noche"
+  ],
+  "DIA": [
+   "Lunes",
+   "Martes",
+   "Miércoles",
+   "Jueves",
+   "Viernes",
+   "Sábado",
+   "Domingo"
+  ]
+ },
+ "etiquetas": {
+  "FRANJA": {
+   "Madrugada": "Madrugada (0 a 5 h)",
+   "Mañana": "Mañana (6 a 11 h)",
+   "Tarde": "Tarde (12 a 17 h)",
+   "Noche": "Noche (18 a 23 h)"
+  }
+ },
+ "tasa_base": 0.014956616710151083,
+ "periodo_prueba": "2019",
+ "ficha": [
+  [
+   "Uso previsto",
+   "Priorizar la respuesta a un reporte de siniestro en Bogotá, como apoyo al criterio del centro de despacho."
+  ],
+  [
+   "No usar para",
+   "Decidir sola la atención de un caso, asignar culpas, fijar tarifas de seguros ni evaluar barrios o personas."
+  ],
+  [
+   "Modelo",
+   "Regresión logística con codificación one-hot · scikit-learn 1.5.2"
+  ],
+  [
+   "Datos",
+   "Siniestros de Bogotá · entrenamiento 2015 a 2018 (125.646 registros) · prueba 2019 (32.962)"
+  ],
+  [
+   "Desempeño en 2019",
+   "AUC 0,803 · el 10 % de reportes de mayor riesgo concentra el 51,3 % de los siniestros con fallecidos"
+  ],
+  [
+   "Límites",
+   "Fuente actualizada por última vez en 2021; registro administrativo con posibles subregistros por localidad; asociación, no causalidad."
+  ],
+  [
+   "Autoría",
+   "Proyecto de ejemplo de la Tutoría 5 · reemplace por el nombre de su equipo"
+  ]
+ ]
+}

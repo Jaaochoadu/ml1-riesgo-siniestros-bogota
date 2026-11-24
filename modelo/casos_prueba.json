@@ -1,0 +1,34 @@
+{
+ "casos": [
+  {
+   "CLASE": "ATROPELLO",
+   "LOCALIDAD": "KENNEDY",
+   "FRANJA": "Madrugada",
+   "DIA": "Sábado"
+  },
+  {
+   "CLASE": "CHOQUE",
+   "LOCALIDAD": "CHAPINERO",
+   "FRANJA": "Tarde",
+   "DIA": "Martes"
+  },
+  {
+   "CLASE": "VOLCAMIENTO",
+   "LOCALIDAD": "USME",
+   "FRANJA": "Noche",
+   "DIA": "Domingo"
+  },
+  {
+   "CLASE": "CAIDA DE OCUPANTE",
+   "LOCALIDAD": "SUBA",
+   "FRANJA": "Mañana",
+   "DIA": "Lunes"
+  }
+ ],
+ "probabilidad_colab": [
+  0.1379431146360411,
+  0.003644575280864299,
+  0.18942214124015666,
+  0.005665054820791035
+ ]
+}
